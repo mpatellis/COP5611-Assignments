@@ -28,8 +28,13 @@ int main(int argc, char **argv)
         result = callrpc(argv[1],SERVICENUM,VERSION,PROCNUM,xdr_wrapstring,
                         &data2, xdr_wrapstring, &data2); 
                 /* xdr_wrapstring is a command to transfer arrays of charaters */
-
-        //fprintf(stdout,"%s",data2);
+        if (result != 0)
+        {
+                printf("Error callrpc returned %d\n", result);
+                return -1;
+        }
+        
+        printf("Response:\n%s\n", data2);
         return(1);
 }
 

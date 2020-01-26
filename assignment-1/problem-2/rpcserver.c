@@ -8,19 +8,18 @@
 
 XDR *server(char **text)
 {
-        char tmp_fd;
-        if (pipe(tmp_fd) == -1) /* create temp pipe to store output */
+        int tmp_fd[2];
+        if (pipe(tmp_fd) == -1)
                 abort();
 
-        /* Redirect all output to the write end of the pipe */
-		// add your code here.
+        FILE *fp = popen(*text, "r");
 
-        system(*text) ; /* system so sh or csh runs so we get the
-                           advantage of env. vars etc  ... */
+        system(*text);
         *text= (char *)malloc(10000*sizeof(char));
-		
-		// output your result from pipe to text
 
+        fread(*text, sizeof(char), 1000, fp);
+
+        pclose(fp);
         return((XDR*)text);   /* return network string back to client */
 }
 
@@ -35,6 +34,3 @@ int main(void)
         fprintf(stderr,"Never should have gotten here svc_run()\n");
         return 1;
 }
-
-
-
