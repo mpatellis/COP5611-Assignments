@@ -53,3 +53,6 @@ dkms.conf
 
 # vscode
 .vscode
+
+# extra file types
+.zip
