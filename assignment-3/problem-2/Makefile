@@ -3,3 +3,4 @@ word-count-thread.out: word-count-thread.cpp word-count-thread.hpp
 
 clean:
 	rm word-count-thread.out
+	
